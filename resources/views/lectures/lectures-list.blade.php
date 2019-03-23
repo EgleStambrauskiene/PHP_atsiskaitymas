@@ -19,8 +19,8 @@
     <div class="table-responsive">
         @if ('admin' == Auth::user()->role)
         <form action="{{ route('lectures.trash') }}" method="POST" id="trash-form">
-            @csrf
-            @method('DELETE')
+        @csrf
+        @method('DELETE')
         @endif
             <table class="table table-hover table-sm">
                 <thead>
@@ -55,11 +55,11 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $("#select-all").click(function(){
-            $('input:checkbox').not(this).prop('checked', this.checked);
-        });
-    </script>
+<script>
+    $("#select-all").click(function(){
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+</script>
 @endsection
 
 @if ('admin' == Auth::user()->role)

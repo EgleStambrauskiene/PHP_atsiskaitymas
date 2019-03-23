@@ -23,30 +23,32 @@
 					{{-- Left Side Of Navbar --}}
 					<ul class="navbar-nav mr-auto">
 						@guest
-							@else
-								@if (Auth::user()->role == 'admin')
-									<li class="nav-item"><a class="nav-link" href="{{ route('students.list') }}">{{ __('Students') }}</a></li>
-									
-									<li class="nav-item"><a class="nav-link" href="{{ route('lectures.list') }}">{{ __('Lectures') }}</a></li>
-								@endif
+						@else
+						<li class="nav-item"><a class="nav-link" href="{{ route('students.list') }}">{{ __('Students') }}</a></li>
+						<li class="nav-item"><a class="nav-link" href="{{ route('lectures.list') }}">{{ __('Lectures') }}</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">{{ __('Grades') }}</a></li>
+						@if (Auth::user()->role == 'admin')
+						<li class="nav-item"><a class="nav-link" href="#">{{ __('Users') }}</a></li>
+						@endif
 						@endguest
 					</ul>
 
 					{{-- Authentication Links --}}
 					<ul class="navbar-nav ml-auto">
 						@guest
-							<li class="nav-item"><a class="nav-link" href="{{ route('login') }}"><span style="color:white">{{ __('Login') }}</span></a></li>
-							@else
-							<li class="nav-item dropdown">
-								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-								{{ Auth::user()->loginname }}, {{ __(Auth::user()->role) }} <span class="caret"></span></a>
-								<div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-										@csrf
-									</form>
-								</div>
-							</li>
+						<li class="nav-item"><a class="nav-link" href="{{ route('login') }}"><span style="color:white">{{ __('Login') }}</span></a></li>
+						@else
+						<li class="nav-item dropdown">
+							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+								{{ Auth::user()->loginname }}, {{ __(Auth::user()->role) }} <span class="caret"></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								@csrf
+								</form>
+							</div>
+						</li>
 						@endguest
 						<li class="nav-item">
 							<form action="{{ route('lang') }}" method="POST" id="lang-switcher-form">
@@ -64,16 +66,15 @@
 
 
 		<div class="mb-4">
-			@yield('content')
+		@yield('content')
 		</div>
 
 		<div class="mb-4">
-			@yield('content_lectures')
+		@yield('content_lectures')
 		</div>
 
-
 		<footer id="footer">
-			@yield('footer')
+		@yield('footer')
 		</footer>
 		<script src="{{ asset('js/app.js') }}"></script>
 		<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>

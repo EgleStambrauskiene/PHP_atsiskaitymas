@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 //COPIED!!
 //Auth::routes();
-// Because we don't use a full auth system, the following routes is enaught
+// Because we don't use a full auth system, the following routes is enough
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
