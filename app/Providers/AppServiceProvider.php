@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //COPIED!!
+        // For MariaDB < 10.2.2
+        // Schema::defaultStringLength(191);
+        $this->app->bind('Msg', function ($app) {
+            return new App\Services\MsgService();
+        });
     }
 }

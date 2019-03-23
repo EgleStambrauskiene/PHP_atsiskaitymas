@@ -1,0 +1,55 @@
+{
+    "The Fifth Sprint": "5_Sprintas",
+	"Management system": "Valdymo sistema",
+    "Re-designed by": "Ją perdarė",
+	"at BTA PHP course.": "BTA PHP kurse.",
+	"The very simple customers management system.": "Labai paprasta klientų valdymo sistema.",
+
+	"admins": "adminai",
+	"users": "naudotojai",
+	"guests": "svečiai",
+	"E-Mail Address": "El. pašto adresas",
+	"Password": "Slaptažodis",
+	"Login": "Prisijungti",
+    "Logout": "Atsijungti",
+
+
+
+    "Please select": "Pasirinkite",
+    "Add": "Įterpti",
+    "Save": "Išsaugoti",    
+    "Add new": "Įterpti naują",
+    "Cancel": "Nutraukti",
+    "Filter by company": "Įmonės filtras",
+    "All": "Viskas",
+    "Edit": "Taisyti",
+    "more": "daugiau",
+    "Back": "Grįžti",
+
+
+    "Last name": "Pavardė",
+    "Phone": "Telefono Nr.",
+    "Trash selected": "Išmesti pažymėtus",
+
+    "Show customer": "Kliento duomenys",
+    "Edit customer": "Taisyti klientą",
+    "Add customer": "Įterpti klientą",
+    "Name": "Vardas",
+    "Enter name": "Įveskite vardą",
+    "Customer name": "Kliento vardas",
+    "Lastname": "Pavardė",
+    "Enter lastname": "Įveskite pavardę",
+    "Customer lastname": "Kliento pavardė",
+    "Phone #": "Telefono numeris",
+    "Enter phone number": "Įveskite telefono numerį",
+    "Customer phone number": "Kliento telefono numeris",
+    "E-mail": "El. pašto adresas",
+    "Enter e-mail address": "Įveskite el. pašto adresą",
+    "Customer e-mail address": "Kliento el. pašto adresas",
+    "Comment": "Pastaba",
+    "Notes about customer": "Pastabos apie šį klientą",
+    "Company": "Įmonė",
+
+    "Customers": "Klientai",
+    "Users": "Naudotojai"
+}

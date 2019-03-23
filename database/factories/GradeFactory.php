@@ -10,6 +10,6 @@ $factory->define(App\Grade::class, function (Faker $faker) {
         'student_id' => function() {
             return factory('App\Student')->create()->id;
         },
-        'grade' => 0,
+        'grade' => $faker->numberBetween(1,10),
     ];
 });

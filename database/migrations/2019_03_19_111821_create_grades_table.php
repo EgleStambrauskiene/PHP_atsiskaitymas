@@ -28,12 +28,12 @@ class CreateGradesTable extends Migration
                 ->references('id')
                 ->on('lectures')
                 ->onUpdate('cascade')
-                ->onDelete('SET NULL');
+                ->onDelete('cascade');
             $table->foreign('student_id')
                 ->references('id')
                 ->on('students')
                 ->onUpdate('cascade')
-                ->onDelete('SET NULL');
+                ->onDelete('cascade');
                 // Engine
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

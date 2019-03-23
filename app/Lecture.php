@@ -31,6 +31,6 @@ class Lecture extends Model
 
     public function setDescriptionAttribute($description)
     {
-        $this->attributes['description'] = Str::title($description);
+        $this->attributes['description'] = $description;
     }
 }

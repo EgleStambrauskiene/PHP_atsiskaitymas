@@ -15,16 +15,16 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 64);
             $table->string('lastname', 64);
+            $table->string('name', 64);
             $table->string('email', 32);
             $table->string('phone', 64);
             // $table->timestamps();
-            $table->unique(['name', 'lastname', 'phone', 'email']);
+            // $table->unique(['name', 'lastname', 'phone', 'email']);
+            $table->unique('email');
+            $table->unique('phone');
             $table->index('name');
             $table->index('lastname');
-            $table->index('email');
-            $table->index('phone');
             // Engine, collation
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

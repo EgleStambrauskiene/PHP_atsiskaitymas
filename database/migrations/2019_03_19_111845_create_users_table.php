@@ -15,18 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('loginname');
+            $table->string('email');
            // We don't implement email verification
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role');
             // We don't implement remember me functionality
             // $table->rememberToken();
             // We don't implement created_at updated_at
             // $table->timestamps();
             // Indexes
-            $table->index('name');
-            $table->index('email');
+            $table->unique('loginname');
+            $table->unique('email');
             // Engine
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

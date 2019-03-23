@@ -31,6 +31,6 @@ class Grade extends Model
 
     public function setGradeAttribute($grade)
     {
-        $this->attributes['grade'] = Str::title($grade);
+        $this->attributes['grade'] = $grade;
     }
 }
