@@ -12,10 +12,6 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//COMMENTED!!
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 //COPIED!!
 //Auth::routes();
@@ -39,31 +35,35 @@ Route::post('/lang', function(Request $request) {
 
 // LoggedIn area
 Route::middleware('auth')->group(function() {
-    // Students list
+    // List: students, lectures.
     Route::get('/students', 'StudentController@list')->name('students.list');
-
-    // Lectures list
     Route::get('/lectures', 'LectureController@list')->name('lectures.list');
 
     // Customers company filter form
     // Route::post('/customers', 'CustomerController@list')->name('customers.list');
 
-    // Student add form
+    // Add form: student, lecture.
     Route::get('/students/new', 'StudentController@new')->name('students.new');
+    Route::get('/lectures/new', 'LectureController@new')->name('lectures.new');
 
-    // Show student
+    // Show: student, lecture.
     Route::get('/students/{id}/show', 'StudentController@show')->where('id', '[0-9]+')->name('students.show');
+    Route::get('/lectures/{id}/show', 'LectureController@show')->where('id', '[0-9]+')->name('lectures.show');
 
-    // Student edit form
+    // Edit form: student, lecture.
     Route::get('/students/{id}/edit', 'StudentController@edit')->where('id', '[0-9]+')->name('students.edit');
+    Route::get('/lectures/{id}/edit', 'LectureController@edit')->where('id', '[0-9]+')->name('lectures.edit');
 
-    // Delete student
+    // Delete: student, lecture.
     Route::delete('/students/trash', 'StudentController@trash')->name('students.trash');
+    Route::delete('/lectures/trash', 'LectureController@trash')->name('lectures.trash');
 
-    // Save edited student
+    // Save edited: student, lecture.
     Route::put('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');
+    Route::put('/lectures/{id}/save', 'LectureController@save')->where('id', '[0-9]+')->name('lectures.save');
 
-    // Save new student
+    // Save new: student, lecture.
     Route::post('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');
+    Route::post('/lectures/{id}/save', 'LectureController@save')->where('id', '[0-9]+')->name('lectures.save');
 });
 

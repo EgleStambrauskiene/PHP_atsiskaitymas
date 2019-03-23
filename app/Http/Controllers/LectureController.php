@@ -48,7 +48,7 @@ class LectureController extends Controller
 
     public function save($id, Request $request)
     {
-        if (Gate::allows('students.update')) {
+        if (Gate::allows('lectures.update')) {
             // Simple input validator
             $validated = $request->validate([
                 'title' => 'string|required|max:128',

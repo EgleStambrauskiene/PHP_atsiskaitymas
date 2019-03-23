@@ -67,6 +67,10 @@
 			@yield('content')
 		</div>
 
+		<div class="mb-4">
+			@yield('content_lectures')
+		</div>
+
 
 		<footer id="footer">
 			@yield('footer')

@@ -32,14 +32,12 @@
         </div>
 
         {{-- Add new and trash selected controls --}}
-        @if ('guests' !== Auth::user()->role)
-            <div class="mb-2">
-                <a href="{{ route('studens.new') }}" class="text-success">+{{ __('Add new') }}</a>&nbsp;
-                @if ('admin' == Auth::user()->role)
-                    <a href="#" class="text-danger" data-toggle="modal" data-target="#trash-modal">-{{ __('Trash selected')}}</a>
-                @endif
-            </div>
-        @endif
+        <div class="mb-2">
+            <a href="{{ route('students.new') }}" class="text-success">+{{ __('Add new') }}</a>&nbsp;
+            @if ('admin' == Auth::user()->role)
+                <a href="#" class="text-danger" data-toggle="modal" data-target="#trash-modal">-{{ __('Trash selected')}}</a>
+            @endif
+        </div>
 
         {{-- Students list --}}
         <div class="table-responsive">
@@ -51,13 +49,10 @@
                     <table class="table table-hover table-sm">
                         <thead>
                             <tr>
-                                @if ('guests' !== Auth::user()->role)
-                                    @if ('admin' == Auth::user()->role)
-                                        <th><input type="checkbox" id="select-all"></th>
-                                    @endif
-                                    <th>&nbsp;</th>
+                                @if ('admin' == Auth::user()->role)
+                                    <th><input type="checkbox" id="select-all"></th>
                                 @endif
-
+                                <th>&nbsp;</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Last name') }}</th>
                                 <th>{{ __('Phone') }}</th>
@@ -67,12 +62,10 @@
                         <tbody>
                             @foreach ($students as $student)
                                 <tr>
-                                    @if ('guests' !== Auth::user()->role)
-                                        @if ('admin' == Auth::user()->role)
-                                            <td><input type="checkbox" name="delete[]" value="{{ $student->id }}"></td>
-                                        @endif
-                                        <td><a href="{{ route('students.edit', ['id' => $student->id]) }}" class="text-success">{{ __('Edit') }}</a></td>
+                                    @if ('admin' == Auth::user()->role)
+                                        <td><input type="checkbox" name="delete[]" value="{{ $student->id }}"></td>
                                     @endif
+                                    <td><a href="{{ route('students.edit', ['id' => $student->id]) }}" class="text-success">{{ __('Edit') }}</a></td>
                                     <td>{{ $student->name }}</td>
                                     <td>{{ $student->lastname}}</td>
                                     <td>{{ $student->phone }}</td>
