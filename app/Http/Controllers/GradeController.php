@@ -18,6 +18,8 @@ class GradeController extends Controller
         $students = Student::orderBy('lastname', 'ASC');
         $lectures = Lecture::orderBy('title', 'ASC');
         $grades = Grade::orderBy('student_id');
+        // Neveikia, nes 'undefined' $student, $lecture.
+        // $grade = Grade::where('student_id', $student->id)->where('lecturet_id', $lecture->id);
 
         // Veikia dalinai: parametrai statiniai, o t.b. dinaminiai.
         // $grade = Grade::where('student_id', DB::table('students')->where('name', 'Vilma')->where('lastname', 'Bakienė')->value('id'))
@@ -45,12 +47,12 @@ class GradeController extends Controller
         //     }
         // };
 
+        // Neveikia, nes neišeina iškviesti.
         $grade = function ($studentId, $lectureId)
         {
             $grade = Grade::where('student_id', $studentId)
             ->where('lecture_id', $lectureId);
             
-            return view('grades.grades-list', ['grade' => $grade]);
         };
 
         // Retrieve: students, lectures from database.
