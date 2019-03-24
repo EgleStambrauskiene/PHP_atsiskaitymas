@@ -18,23 +18,49 @@ class GradeController extends Controller
         $students = Student::orderBy('lastname', 'ASC');
         $lectures = Lecture::orderBy('title', 'ASC');
         $grades = Grade::orderBy('student_id');
-        
+
+        // Veikia dalinai: parametrai statiniai, o t.b. dinaminiai.
         // $grade = Grade::where('student_id', DB::table('students')->where('name', 'Vilma')->where('lastname', 'Bakienė')->value('id'))
         // ->where('lecture_id', DB::table('lectures')->where('title', 'Entropija')->value('id'))
         // ->value('grade');
 
-        $grade = Grade::where('student_id', DB::table('students')->where('name', $student->name)->where('lastname', $student->lastname)->value('id'))
-        ->where('lecture_id', DB::table('lectures')->where('title', $lecture->title)->value('id'))
-        ->value('grade');
+        // Neveikia, nes neturi $student, $lecture (jie "galioja" tik 'grades-list.blade')
+        // $grade = Grade::where('student_id', DB::table('students')->where('name', $student->name)->where('lastname', $student->lastname)->value('id'))
+        // ->where('lecture_id', DB::table('lectures')->where('title', $lecture->title)->value('id'))
+        // ->value('grade');
+        // Rodo 'undefined' variables $studentId, $lectureId
+        // var_dump($studentId, $lectureId); 
+
+        // Rodo 'undefined' function getGrade.
+        // function getGrade($studentId, $lectureId)
+        // {
+        //     $grade = Grade::where('student_id', $studentId)
+        //     ->where('lecture_id', $lectureId);
+        //     if($grade)
+        //     {
+        //         // return $grade->grade;
+        //         return $grade->value('grade');
+        //     } else {
+        //         return 'nėra';
+        //     }
+        // };
+
+        $grade = function ($studentId, $lectureId)
+        {
+            $grade = Grade::where('student_id', $studentId)
+            ->where('lecture_id', $lectureId);
+            
+            return view('grades.grades-list', ['grade' => $grade]);
+        };
 
         // Retrieve: students, lectures from database.
         $students = $students->paginate(config('students.itemsOnPage'));
         $lectures = $lectures->paginate(config('lectures.itemsOnPage'));
         // View
-        return view('grades.grades-list', ['students' => $students, 'student' => $student, 'lectures' => $lectures, 'lecture' => $lecture, 'grades' => $grades, 'grade' => $grade]);
+        return view('grades.grades-list', ['students' => $students, 'lectures' => $lectures, 'grades' => $grades, 'grade' => $grade]);
+        
     }
 
-    
     public function show($id)
     {
         $student = Student::findOrFail($id);
@@ -44,10 +70,9 @@ class GradeController extends Controller
     public function new()
     {
         if (Gate::allows('students.update')) {
-            // Companies is required by company select dropdown
-            // $companies = Company::orderBy('title', 'ASC')->get();
             return view('students.students-add-form');
         }
+
         return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
     }
 
@@ -55,7 +80,6 @@ class GradeController extends Controller
     {
         if (Gate::allows('students.update')) {
             $student = Student::findOrFail($id);
-            // $companies = Company::orderBy('title', 'ASC')->get();
             return view('students.students-edit-form', ['student' => $student]);
         }
         return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));

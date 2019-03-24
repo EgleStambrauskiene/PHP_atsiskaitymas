@@ -48,6 +48,7 @@
                 </thead>
                 <tbody>
                     @foreach ($students as $student)
+                    <?php $studentId = $student->id ?>
                     <tr>
                         {{-- @if ('admin' == Auth::user()->role) --}}
                         {{-- <td><input type="checkbox" name="delete[]" value="{{ $lecture->id }}"></td> --}}
@@ -56,8 +57,9 @@
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->lastname }}</td>
                         @foreach ($lectures as $lecture)
-                        <td>{{ $grade }}</td>
-                        {{-- <td>{{ __('testas')}}</td> --}}
+                        <?php $lectureId = $lecture->id ?>
+                        {{-- <td>{{ getGrade($studentId, $lectureId) }}</td> --}}
+                        <td>@if (isset($grade->grade)){{ $grade->grade }} @else {{ __('nėra')}} @endif</td>
                         @endforeach
                     </tr>
                     @endforeach
