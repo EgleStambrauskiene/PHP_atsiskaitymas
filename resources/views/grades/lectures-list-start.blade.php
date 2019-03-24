@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <h1>{{ __('Students') }}</h1>
+    <h1>{{ __('Lectures') }}</h1>
 
     <div class="mb-4">
         @include('messages.messages')
@@ -9,17 +9,16 @@
 
     {{-- Add new and trash selected controls --}}
     <div class="mb-2">
-        <a href="{{ route('students.new') }}" class="text-success">+{{ __('Add new') }}</a>&nbsp;
+        <a href="{{ route('lectures.new') }}" class="text-success">+{{ __('Add new') }}</a>&nbsp;
         @if ('admin' == Auth::user()->role)
         <a href="#" class="text-danger" data-toggle="modal" data-target="#trash-modal">-{{ __('Trash selected')}}</a>
         @endif
     </div>
-    
 
-    {{-- Students list --}}
+    {{-- Lectures list --}}
     <div class="table-responsive">
         @if ('admin' == Auth::user()->role)
-        <form action="{{ route('students.trash') }}" method="POST" id="trash-form">
+        <form action="{{ route('lectures.trash') }}" method="POST" id="trash-form">
         @csrf
         @method('DELETE')
         @endif
@@ -27,26 +26,26 @@
                 <thead>
                     <tr>
                         @if ('admin' == Auth::user()->role)
-                        <th><span><i class="fas fa-user-minus"></i></span></th>
-                        <th><span><i class="fas fa-user-edit"></i></span></th>
+                        <th><input type="checkbox" id="select-all"></th>
                         @endif
-                        <th>{{ __('Name') }}</th>
-                        <th>{{ __('Last name') }}</th>
-                        <th>{{ __('Phone') }}</th>
-                        <th>{{ __('E-mail') }}</th>
+                        <th>&nbsp;</th>
+                        <th>{{ __('Title') }}</th>
+                        <th>{{ __('Description') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($students as $student)
+                    @foreach ($lectures as $lecture)
                     <tr>
                         @if ('admin' == Auth::user()->role)
-                        <td><input type="checkbox" name="delete[]" value="{{ $student->id }}"></td>
-                        <td><a href="{{ route('students.edit', ['id' => $student->id]) }}" class="text-success">{{ __('Edit') }}</a></td>
+                        <td><input type="checkbox" name="delete[]" value="{{ $lecture->id }}"></td>
                         @endif
-                        <td>{{ $student->name }}</td>
-                        <td>{{ $student->lastname }}</td>
-                        <td>{{ $student->phone }}</td>
-                        <td>{{ $student->email }}</td> 
+                        <td><a href="{{ route('lectures.edit', ['id' => $lecture->id]) }}" class="text-success">{{ __('Edit') }}</a></td>
+                        <td>{{ $lecture->title }}</td>
+                        <td>{{ str_limit(strip_tags($lecture->description)) }}
+                            @if (strlen(strip_tags($lecture->description)) > 100)
+                            &nbsp;<a href="{{ route('lectures.show', ['id' => $lecture->id]) }}" class="text-primary">{{ __('more') }}</a>
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -55,7 +54,7 @@
         </form>
         @endif
     </div>
-    {{ $students->links('students.students-paginator-bootstrap') }}
+    {{ $lectures->links('lectures.lectures-paginator-bootstrap') }}
 </div>
 @endsection
 

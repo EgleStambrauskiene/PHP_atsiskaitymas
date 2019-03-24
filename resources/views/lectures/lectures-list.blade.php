@@ -30,7 +30,7 @@
                         <th><span><i class="fas fa-edit"></i></span></th>
                         @endif
                         <th>{{ __('Title') }}</th>
-                        <th>{{ __('Description) }}</th>
+                        <th>{{ __('Description') }}</th>
                     </tr>
                 </thead>
                 <tbody>

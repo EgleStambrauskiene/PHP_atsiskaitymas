@@ -35,9 +35,10 @@ Route::post('/lang', function(Request $request) {
 
 // LoggedIn area
 Route::middleware('auth')->group(function() {
-    // List: students, lectures.
+    // List: students, lectures, grades.
     Route::get('/students', 'StudentController@list')->name('students.list');
     Route::get('/lectures', 'LectureController@list')->name('lectures.list');
+    Route::get('/grades', 'GradeController@list')->name('grades.list');
 
     // Customers company filter form
     // Route::post('/customers', 'CustomerController@list')->name('customers.list');
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function() {
     // Delete: student, lecture.
     Route::delete('/students/trash', 'StudentController@trash')->name('students.trash');
     Route::delete('/lectures/trash', 'LectureController@trash')->name('lectures.trash');
+    Route::delete('/grades/trash', 'LectureController@trash')->name('lectures.trash');
 
     // Save edited: student, lecture.
     Route::put('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');

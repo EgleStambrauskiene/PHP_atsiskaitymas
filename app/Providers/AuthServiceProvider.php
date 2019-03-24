@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //COPIED!!
+        // Define update: students, lectures, grades.
         Gate::define('students.update', function ($user) {
             return ($user->role == 'admin');
         });
@@ -32,11 +32,20 @@ class AuthServiceProvider extends ServiceProvider
             return ($user->role == 'admin');
         });
 
+        Gate::define('grades.update', function ($user) {
+            return ($user->role == 'admin');
+        });
+
+        // Define trash: students, lectures, grades.
         Gate::define('students.trash', function ($user) {
             return ($user->role == 'admin');
         });
 
         Gate::define('lectures.trash', function ($user) {
+            return ($user->role == 'admin');
+        });
+
+        Gate::define('grades.trash', function ($user) {
             return ($user->role == 'admin');
         });
         
