@@ -38,19 +38,13 @@ Route::middleware('auth')->group(function() {
     // List: students, lectures, grades.
     Route::get('/students', 'StudentController@list')->name('students.list');
     Route::get('/lectures', 'LectureController@list')->name('lectures.list');
-    Route::get('/grades', 'GradeController@list')->name('grades.list');
-
-    // Customers company filter form
-    // Route::post('/customers', 'CustomerController@list')->name('customers.list');
-
-    // Get grades of student's all lectures.
+    
+    // Get grades of a student in all lectures.
     Route::get('/grades/{id}/student', 'GradeController@byStudent')->where('id', '[0-9]+')->name('grades.student');
 
-    // Get grades of lecture's all students.
-    // Route::get('/lectures/{id}/lecture', 'GradeController@list')->where('id', '[0-9]+')->name('grades.lecture');
+    // Get grades of a lecture for all students.
+    Route::get('/grades/{id}/lecture', 'GradeController@byLecture')->where('id', '[0-9]+')->name('grades.lecture');
 
-    
-    
     // Add form: student, lecture.
     Route::get('/students/new', 'StudentController@new')->name('students.new');
     Route::get('/lectures/new', 'LectureController@new')->name('lectures.new');
@@ -58,23 +52,28 @@ Route::middleware('auth')->group(function() {
     // Show: student, lecture.
     Route::get('/students/{id}/show', 'StudentController@show')->where('id', '[0-9]+')->name('students.show');
     Route::get('/lectures/{id}/show', 'LectureController@show')->where('id', '[0-9]+')->name('lectures.show');
+    Route::get('/grades/{id}/show', 'GradeController@show')->where('id', '[0-9]+')->name('grades.show');
 
     // Edit form: student, lecture.
     Route::get('/students/{id}/edit', 'StudentController@edit')->where('id', '[0-9]+')->name('students.edit');
     Route::get('/lectures/{id}/edit', 'LectureController@edit')->where('id', '[0-9]+')->name('lectures.edit');
+    Route::get('/grades', 'GradeController@edit')->where('id', '[0-9]+')->name('grades.edit');
     
     // Delete: student, lecture.
     Route::delete('/students/trash', 'StudentController@trash')->name('students.trash');
     Route::delete('/lectures/trash', 'LectureController@trash')->name('lectures.trash');
-    Route::delete('/grades/trash', 'LectureController@trash')->name('lectures.trash');
+    Route::delete('/grades/trash', 'GradeController@trash')->name('grades.trash');
 
     // Save edited: student, lecture.
     Route::put('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');
     Route::put('/lectures/{id}/save', 'LectureController@save')->where('id', '[0-9]+')->name('lectures.save');
-    Route::put('/grades/{id}/save', 'GradeController@save')->name('grades.save');;
+    Route::put('/grades/{id}/save', 'GradeController@save')->name('grades.save');
 
     // Save new: student, lecture.
     Route::post('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');
     Route::post('/lectures/{id}/save', 'LectureController@save')->where('id', '[0-9]+')->name('lectures.save');
 });
 
+// This may be usefull for future
+// Customers company filter form
+// Route::post('/customers', 'CustomerController@list')->name('customers.list');

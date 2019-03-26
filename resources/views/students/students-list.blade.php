@@ -35,7 +35,7 @@
                         <th>{{ __('Phone') }}</th>
                         <th>{{ __('E-mail') }}</th>
                         <th>
-                        {{ __('Grades') }}
+                        {{ __('All student grades') }}
                         </th>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                         <td>{{ $student->phone }}</td>
                         <td>{{ $student->email }}</td>
                         <td>
-                            <a class="button-link" href="{{ route('grades.student', ['id' => $student->id]) }}">{{ __('grades') }}</a>
+                            <a class="button-link" href="{{ route('grades.student', ['id' => $student->id]) }}">{{ __('Get grades!') }}</a>
                         </td>
                     </tr>
                     @endforeach

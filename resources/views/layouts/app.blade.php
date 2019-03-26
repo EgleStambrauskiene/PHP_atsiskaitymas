@@ -26,10 +26,11 @@
 						@else
 						<li class="nav-item"><a class="nav-link" href="{{ route('students.list') }}">{{ __('Students') }}</a></li>
 						<li class="nav-item"><a class="nav-link" href="{{ route('lectures.list') }}">{{ __('Lectures') }}</a></li>
-						<li class="nav-item"><a class="nav-link" href="{{ route('grades.list') }}">{{ __('Grades') }}</a></li>
-						@if (Auth::user()->role == 'admin')
-						<li class="nav-item"><a class="nav-link" href="#">{{ __('Users') }}</a></li>
-						@endif
+						{{-- <li class="nav-item"><a class="nav-link" href="{{ route('grades.edit') }}">{{ __('Grades') }}</a></li> --}}
+						{{-- <li class="nav-item"><a class="nav-link" href="{{ route('grades.edit', ['id' => $student->id]) }}">{{ __('Grades') }}</a></li> --}}
+						{{-- @if (Auth::user()->role == 'admin') --}}
+							{{-- <li class="nav-item"><a class="nav-link" href="#">{{ __('Users') }}</a></li> --}}
+							{{-- @endif --}}
 						@endguest
 					</ul>
 

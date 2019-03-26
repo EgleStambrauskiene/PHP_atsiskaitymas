@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 
-    <h1>{{ __('Grades of ') }}{{ $student->student->name }}&nbsp{{ $student->student->lastname }}</h1>
+    <h3>{{ $student->student->name }}&nbsp{{ $student->student->lastname }}{{ __(' grades:') }}</h3>
 
     <div class="mb-4">
         @include('messages.messages')
@@ -12,10 +12,9 @@
     <div class="table-responsive">
         <table class="table table-hover table-sm">
             <ul>
-            
                 @foreach ($grade as $g)
                 <li>
-                {{ $g->lecture->title }}&nbsp{{ $g->grade }}
+                {{ $g->lecture->title }}{{ __(': ') }}{{ $g->grade }}
                 </li>
                 @endforeach
             </ul>

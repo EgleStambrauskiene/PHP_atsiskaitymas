@@ -31,7 +31,7 @@
                         @endif
                         <th>{{ __('Title') }}</th>
                         <th>{{ __('Description') }}</th>
-                        <th>{{ __('All grades /at lecture/') }}</th>
+                        <th>{{ __('All lecture grades') }}</th>
                         
                     </tr>
                 </thead>
@@ -45,9 +45,7 @@
                         <td>{{ $lecture->title }}</td>
                         <td>{{ $lecture->description}}</td>
                         <td>
-                            <button type="button" class="btn btn-warning">
-                                <a class="button-link" href="{{ route('grades.lecture', [$lecture->id]) }}"></a>
-                            </button>
+                            <a class="button-link" href="{{ route('grades.lecture', ['id' => $lecture->id]) }}">{{ __('Get grades!') }}</a>
                         </td>
                     </tr>
                     @endforeach

@@ -2,8 +2,8 @@
 @section('content')
 <div class="container">
 
-    <h1>{{ __('Grades of ') }}{{ $student->name }}&nbsp{{ $student->lastname }}</h1>
-
+    <h3>{{ __('Grades for all students in: ') }}{{ $lecture->lecture->title }}</h3>
+   
     <div class="mb-4">
         @include('messages.messages')
     </div>
@@ -24,28 +24,13 @@
             {{-- @method('DELETE') --}}
                 {{-- @endif --}}
             <table class="table table-hover table-sm">
-                <thead>
-                    <tr>
-                    {{-- @if ('admin' == Auth::user()->role) --}}
-                    {{-- <th><span><i class="fas fa-trash-alt"></i></span></th> --}}
-                    {{-- <th><span><i class="fas fa-edit"></i></span></th> --}}
-                    {{-- @endif --}}
-                        <th>{{ __('Lecture') }}</th>
-                        <th>{{ __('Grade') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($lectures as $lecture)
-                    <tr>
-                        {{-- @if ('admin' == Auth::user()->role) --}}
-                        {{-- <td><input type="checkbox" name="delete[]" value="{{ $lecture->id }}"></td> --}}
-                        {{-- <td><a href="{{ route('lectures.edit', ['id' => $lecture->id]) }}" class="text-success">{{ __('Edit') }}</a></td> --}}
-                        {{-- @endif --}}
-                        <td>{{ $lecture->title }}</td>
-                        {{-- <td>{{ $grades->grade }}</td> --}}
-                    </tr>
+                <ul>
+                    @foreach ($grade as $g)
+                    <li>
+                    {{ $g->student->name }}&nbsp{{ $g->student->lastname }}{{ __(': ') }}{{ $g->grade }}
+                    </li>
                     @endforeach
-                </tbody>
+                </ul>
             </table>
         {{-- @if ('admin' == Auth::user()->role) --}}
             {{-- </form> --}}
