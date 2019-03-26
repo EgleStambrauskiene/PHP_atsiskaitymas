@@ -34,6 +34,9 @@
                         <th>{{ __('Last name') }}</th>
                         <th>{{ __('Phone') }}</th>
                         <th>{{ __('E-mail') }}</th>
+                        <th>
+                        {{ __('Grades') }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +49,10 @@
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->lastname }}</td>
                         <td>{{ $student->phone }}</td>
-                        <td>{{ $student->email }}</td> 
+                        <td>{{ $student->email }}</td>
+                        <td>
+                            <a class="button-link" href="{{ route('grades.student', ['id' => $student->id]) }}">{{ __('grades') }}</a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

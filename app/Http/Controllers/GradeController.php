@@ -12,12 +12,16 @@ use Gate;
 
 class GradeController extends Controller
 {
-    public function list(Request $request)
+    // Status: in process.
+    public function byStudent(Request $request, $id)
     {
         // Retrieving: students, lectures.
-        $students = Student::orderBy('lastname', 'ASC');
-        $lectures = Lecture::orderBy('title', 'ASC');
-        $grades = Grade::orderBy('student_id');
+        // $students = Student::orderBy('lastname', 'ASC');
+        // $lectures = Lecture::orderBy('title', 'ASC');
+        // $grades = Grade::orderBy('student_id');
+        // $student = Student::findOrFail($id);
+            $grade = Grade::with('student', 'lecture')->where('student_id', $id)->get();
+            $student = Grade::with('student', 'lecture')->where('student_id', $id)->first();
         // Neveikia, nes 'undefined' $student, $lecture.
         // $grade = Grade::where('student_id', $student->id)->where('lecture_id', $lecture->id);
 
@@ -47,74 +51,98 @@ class GradeController extends Controller
         //     }
         // };
 
+        // Status: in process.
+        // function byStudent($id)
+        // {
+        //     $student = Student::findOrFail($id);
+        //     Grade::with('student', 'lecture')->where('student_id', $id)->get();
+        //     return view('grades.grades-student', ['lectures' => $lectures, 'student' => $student, 'id' => $student->id]);
+        // }
+
         // Neveikia, nes neišeina iškviesti.
-        $grade = function ($studentId, $lectureId)
-        {
-            $grade = Grade::where('student_id', $studentId)->where('lecture_id', $lectureId);
-            return $grade;
-        };
+        // $grade = function ($studentId, $lectureId)
+        // {
+        //     $grade = Grade::where('student_id', $studentId)->where('lecture_id', $lectureId);
+        //     return $grade;
+        // };
 
         // Retrieve: students, lectures from database.
-        $students = $students->paginate(config('students.itemsOnPage'));
-        $lectures = $lectures->paginate(config('lectures.itemsOnPage'));
+        // $students = $students->paginate(config('students.itemsOnPage'));
+        // $lectures = $lectures->paginate(config('lectures.itemsOnPage'));
         // View
-        return view('grades.grades-list', ['students' => $students, 'lectures' => $lectures, 'grades' => $grades, 'grade' => $grade]);
+        // , 'id' => $student->id
+        return view('grades.grades-student', ['grade' => $grade, 'student' => $student]);
         
     }
 
+    // Status: copied, not edited.
     public function show($id)
     {
         $student = Student::findOrFail($id);
         return view('grades.grades-show', ['student' => $student]);
     }
 
-    public function new()
-    {
-        if (Gate::allows('students.update')) {
-            return view('students.students-add-form');
-        }
+    
 
-        return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
+    // Status: in process.
+    public function byLecture($id)
+    {
+        Grade::with('student', 'lecture')->where('lecture_id', $id)->get();
+        return view('grades.grades-lecture');
     }
 
-    public function edit($id)
-    {
-        if (Gate::allows('students.update')) {
-            $student = Student::findOrFail($id);
-            return view('students.students-edit-form', ['student' => $student]);
-        }
-        return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
-    }
+    // Status: copied, not edited.
+    // public function new()
+    // {
+    //     if (Gate::allows('students.update')) {
+    //         return view('students.students-add-form');
+    //     }
 
+    //     return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
+    // }
+
+    // Status: copied, not edited.
+    // public function edit($id)
+    // {
+    //     if (Gate::allows('grades.update')) {
+    //         $grade = Grade::with('student', 'lecture')->where('student_id', $id)->where('lecture_id', $id)->get();
+    //         // $student = Grade::with('student', 'lecture')->where('student_id', $id)->first();
+    //         // $grade = Grade::findOrFail($id);
+    //         return view('grades.grades-edit-form', ['student' => $student], ['lecture' => $lecture] );
+    //     }
+    //     return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
+    // }
+
+    // Status: in process.
     public function save($id, Request $request)
     {
-        if (Gate::allows('students.update')) {
+        // if (Gate::allows('grades.update')) {
             // Simple input validator
             $validated = $request->validate([
-                'name' => 'string|required|max:128',
-                'lastname' => 'string|required|max:128',
-                'phone' => 'string|required|max:128',
-                'email' => 'email|required',
-                
+                'lecture_id' => 'required',
+                'lecture_id' => 'required',
+                'grade' => 'required',
             ]);
+
             if ($validated) {
-                if ($id == 0) {
-                    // Store new record to database
-                    $student = Student::create($validated);
-                    return redirect(route('students.list'))->with('success', __('Student created.'));
-                } else {
+                // if ($id == 0) {
+                //     // Store new record to database
+                //     $student = Student::create($validated);
+                //     return redirect(route('students.list'))->with('success', __('Student created.'));
+                // } else {
                     // Update record in database
-                    $student = Student::findOrFail($id);
-                    $student->fill($validated);
-                    $student->save();
+                    $grade = Grade::findOrFail($id);
+                    $grade->fill($validated);
+                    $grade->save();
                     return redirect($request->input('back'));
-                }
+                
             }
-            return redirect()->back()->withInput();
-        }
-        return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
+            return redirect()->back();
+        // }
+        // return redirect(route('students.list'))->with('warning', __('Action is prohibited by local policy.'));
     }
 
+    // Status: copied, not edited.
     public function trash(Request $request)
     {
         if (Gate::allows('students.trash')) {

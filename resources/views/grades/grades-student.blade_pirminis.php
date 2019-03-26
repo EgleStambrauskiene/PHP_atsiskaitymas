@@ -1,63 +1,57 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <h1>{{ __('Lectures') }}</h1>
+
+    <h1>{{ __('Grades of ') }}{{ $student->name }}&nbsp{{ $student->lastname }}</h1>
 
     <div class="mb-4">
         @include('messages.messages')
     </div>
 
     {{-- Add new and trash selected controls --}}
-    <div class="mb-2">
-        <a href="{{ route('lectures.new') }}" class="text-success">+{{ __('Add new') }}</a>&nbsp;
-        @if ('admin' == Auth::user()->role)
-        <a href="#" class="text-danger" data-toggle="modal" data-target="#trash-modal">-{{ __('Trash selected')}}</a>
-        @endif
-    </div>
+    {{-- <div class="mb-2"> --}}
+        {{-- <a href="{{ route('lectures.new') }}" class="text-success">+{{ __('Add new') }}</a>&nbsp; --}}
+        {{-- @if ('admin' == Auth::user()->role) --}}
+            {{-- <a href="#" class="text-danger" data-toggle="modal" data-target="#trash-modal">-{{ __('Trash selected')}}</a> --}}
+            {{-- @endif --}}
+                {{-- </div> --}}
     
-    {{-- Lectures list --}}
+    {{-- Grades list --}}
     <div class="table-responsive">
-        @if ('admin' == Auth::user()->role)
-        <form action="{{ route('lectures.trash') }}" method="POST" id="trash-form">
-        @csrf
-        @method('DELETE')
-        @endif
+    {{-- @if ('admin' == Auth::user()->role) --}}
+    {{-- <form action="{{ route('grades.trash') }}" method="POST" id="trash-form"> --}}
+        {{-- @csrf --}}
+            {{-- @method('DELETE') --}}
+                {{-- @endif --}}
             <table class="table table-hover table-sm">
                 <thead>
                     <tr>
-                        @if ('admin' == Auth::user()->role)
-                        <th><span><i class="fas fa-trash-alt"></i></span></th>
-                        <th><span><i class="fas fa-edit"></i></span></th>
-                        @endif
-                        <th>{{ __('Title') }}</th>
-                        <th>{{ __('Description') }}</th>
-                        <th>{{ __('All grades /at lecture/') }}</th>
-                        
+                    {{-- @if ('admin' == Auth::user()->role) --}}
+                    {{-- <th><span><i class="fas fa-trash-alt"></i></span></th> --}}
+                    {{-- <th><span><i class="fas fa-edit"></i></span></th> --}}
+                    {{-- @endif --}}
+                        <th>{{ __('Lecture') }}</th>
+                        <th>{{ __('Grade') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($lectures as $lecture)
                     <tr>
-                        @if ('admin' == Auth::user()->role)
-                        <td><input type="checkbox" name="delete[]" value="{{ $lecture->id }}"></td>
-                        <td><a href="{{ route('lectures.edit', ['id' => $lecture->id]) }}" class="text-success">{{ __('Edit') }}</a></td>
-                        @endif
+                        {{-- @if ('admin' == Auth::user()->role) --}}
+                        {{-- <td><input type="checkbox" name="delete[]" value="{{ $lecture->id }}"></td> --}}
+                        {{-- <td><a href="{{ route('lectures.edit', ['id' => $lecture->id]) }}" class="text-success">{{ __('Edit') }}</a></td> --}}
+                        {{-- @endif --}}
                         <td>{{ $lecture->title }}</td>
-                        <td>{{ $lecture->description}}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning">
-                                <a class="button-link" href="{{ route('grades.lecture', [$lecture->id]) }}"></a>
-                            </button>
-                        </td>
+                        {{-- <td>{{ $grades->grade }}</td> --}}
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-        @if ('admin' == Auth::user()->role)
-        </form>
-        @endif
+        {{-- @if ('admin' == Auth::user()->role) --}}
+            {{-- </form> --}}
+                {{-- @endif --}}
     </div>
-    {{ $lectures->links('lectures.lectures-paginator-bootstrap') }}
+    {{-- {{ $lectures->links('lectures.lectures-paginator-bootstrap') }} --}}
 </div>
 @endsection
 

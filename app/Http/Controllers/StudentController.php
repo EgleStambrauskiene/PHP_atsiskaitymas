@@ -11,10 +11,11 @@ class StudentController extends Controller
     public function list(Request $request)
     {
         // Students retrieving.
-        $students = Student::orderBy('lastname', 'ASC');
+        $students = Student::orderBy('lastname', 'ASC')->paginate(config('students.itemsOnPage'));
 
         // Retrieve students from database
-        $students = $students->paginate(config('students.itemsOnPage'));
+        // $students = $students->paginate(config('students.itemsOnPage'));
+
         // View
         return view('students.students-list', ['students' => $students]);
     }

@@ -21,7 +21,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-//COPIED!!
+// Start page
 Route::get('/', function () {
     return view('college.college-front');
 });
@@ -43,6 +43,14 @@ Route::middleware('auth')->group(function() {
     // Customers company filter form
     // Route::post('/customers', 'CustomerController@list')->name('customers.list');
 
+    // Get grades of student's all lectures.
+    Route::get('/grades/{id}/student', 'GradeController@byStudent')->where('id', '[0-9]+')->name('grades.student');
+
+    // Get grades of lecture's all students.
+    // Route::get('/lectures/{id}/lecture', 'GradeController@list')->where('id', '[0-9]+')->name('grades.lecture');
+
+    
+    
     // Add form: student, lecture.
     Route::get('/students/new', 'StudentController@new')->name('students.new');
     Route::get('/lectures/new', 'LectureController@new')->name('lectures.new');
@@ -54,7 +62,7 @@ Route::middleware('auth')->group(function() {
     // Edit form: student, lecture.
     Route::get('/students/{id}/edit', 'StudentController@edit')->where('id', '[0-9]+')->name('students.edit');
     Route::get('/lectures/{id}/edit', 'LectureController@edit')->where('id', '[0-9]+')->name('lectures.edit');
-
+    
     // Delete: student, lecture.
     Route::delete('/students/trash', 'StudentController@trash')->name('students.trash');
     Route::delete('/lectures/trash', 'LectureController@trash')->name('lectures.trash');
@@ -63,6 +71,7 @@ Route::middleware('auth')->group(function() {
     // Save edited: student, lecture.
     Route::put('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');
     Route::put('/lectures/{id}/save', 'LectureController@save')->where('id', '[0-9]+')->name('lectures.save');
+    Route::put('/grades/{id}/save', 'GradeController@save')->name('grades.save');;
 
     // Save new: student, lecture.
     Route::post('/students/{id}/save', 'StudentController@save')->where('id', '[0-9]+')->name('students.save');

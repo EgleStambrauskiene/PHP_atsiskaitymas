@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <h1>{{ __('Edit lecture') }}</h1>
+    <h1>{{ __('Edit grade') }}</h1>
 
     {{-- Validation errors --}}
     @if ($errors->any())
@@ -17,24 +17,33 @@
     </div>
     @endif
 
-    {{-- Lecture edit form --}}
-    <form action="{{ route('lectures.save', [$lecture->id]) }}" method="POST">
+    {{-- Grade edit form --}}
+    <form action="{{ route('grades.save', [$grade->id]) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="back" value="{{ url()->previous() }}">
 
-        {{--Title --}}
+        {{--Student --}}
         <div class="form-group">
-            <label for="title">{{ __('Title') }}</label>
-            <input name="title" type="text" class="form-control" id="title" placeholder="{{ __('Enter title') }}" value="{{ $lecture->title }}">
-            <small class="form-text text-muted">{{ __('Lecture title') }}</small>
+            <label for="title">{{ __('Lecture') }}</label>
+            <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+            <option selected>Choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        </div>
+            
         </div>
 
-        {{-- Description --}}
+        {{-- Lecture --}}
         <div class="form-group">
             <label for="description">{{ __('Description') }}</label>
-            <textarea name="description" class="form-control" id="descriptione" placeholder="{{ __('Enter description') }}">{{ $lecture->description }}</textarea>
-            <small class="form-text text-muted">{{ __('Lecture description') }}</small>
+            
         </div>
 
         <button type="submit" class="btn btn-success">{{ __('Save') }}</button>&nbsp;
